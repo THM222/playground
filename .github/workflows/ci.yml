@@ -35,7 +35,7 @@ jobs:
           echo Add other actions to build,
           echo test, and deploy your project.
 
-      # Setup and run python script
+      # Setup and run python script, generates a json file
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
@@ -44,4 +44,9 @@ jobs:
       - run: |
           pip install -r requirements.txt
           python --version
-          python print_csv.py
+          python csv_to_json.py
+
+      - uses: mikeal/publish-to-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH_NAME: 'main'
